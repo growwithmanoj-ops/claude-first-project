@@ -6,9 +6,17 @@ import { QuestionScreen } from './components/QuestionScreen';
 import { LoadingScreen } from './components/LoadingScreen';
 import { RoadmapScreen } from './components/RoadmapScreen';
 import { CustomRecModal } from './components/CustomRecModal';
+import { SplashScreen } from './components/SplashScreen';
 import type { UserAnswers, Interest } from './types';
 
 function App() {
+  const [showSplash, setShowSplash] = useState(() => !sessionStorage.getItem('splashShown'));
+
+  const handleSplashComplete = () => {
+    sessionStorage.setItem('splashShown', '1');
+    setShowSplash(false);
+  };
+
   const {
     screen,
     currentStep,
@@ -39,6 +47,10 @@ function App() {
   const handleBackFromRoadmap = () => {
     setScreen('questions');
   };
+
+  if (showSplash) {
+    return <SplashScreen onComplete={handleSplashComplete} />;
+  }
 
   return (
     <>
