@@ -34,7 +34,7 @@ export function SplashScreen({ onComplete }: SplashScreenProps) {
           }}
         >
           <motion.img
-            src="/splash.png"
+            src="https://ca-times.brightspotcdn.com/dims4/default/2a5df21/2147483647/strip/true/crop/1596x1067+2+0/resize/320x214!/quality/75/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2Fca%2Fb5%2F9b66af844acc81746c3651efd2aa%2Fgrok-elon-musk-ai-circle.gif"
             alt="Loading..."
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
