@@ -70,23 +70,21 @@ export async function getCustomRecommendations(
   const timeout = setTimeout(() => controller.abort(), CONFIG.API_TIMEOUT_MS);
 
   try {
-    const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${CONFIG.OPENROUTER_API_KEY}`,
+        'x-api-key': CONFIG.ANTHROPIC_API_KEY,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true',
         'Content-Type': 'application/json',
-        'HTTP-Referer': window.location.origin,
-        'X-Title': 'PathfinderAI',
       },
       body: JSON.stringify({
-        model: CONFIG.OPENROUTER_MODEL,
+        model: CONFIG.ANTHROPIC_MODEL,
+        max_tokens: 1000,
+        system: SYSTEM_PROMPT,
         messages: [
-          { role: 'system', content: SYSTEM_PROMPT },
           { role: 'user', content: buildUserPrompt(request) },
         ],
-        temperature: 0.3,
-        max_tokens: 1000,
-        response_format: { type: 'json_object' },
       }),
       signal: controller.signal,
     });
@@ -98,7 +96,7 @@ export async function getCustomRecommendations(
     }
 
     const data = await response.json();
-    const content = data.choices?.[0]?.message?.content;
+    const content = data.content?.[0]?.text;
 
     if (!content) {
       return { success: false, error: 'emptyResponse' };
