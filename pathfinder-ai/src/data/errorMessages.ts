@@ -51,4 +51,30 @@ export const errorMessages = {
     text: 'Something unexpected happened. Let\'s try that again.',
     icon: '😅',
   },
+  customRec: {
+    textTooShort: {
+      text: 'Tell us a bit more — even a sentence or two helps us find the right resources for you.',
+      icon: '✏️',
+    },
+    textTooLong: {
+      text: "That's a lot of detail! Try to keep it under 500 characters — we'll still find great matches.",
+      icon: '📝',
+    },
+    allFieldsRequired: {
+      text: 'Fill in all three fields so we can give you the best recommendations.',
+      icon: '👆',
+    },
+    apiError: {
+      text: "We couldn't reach our recommendation engine right now. Try again in a moment, or use the full roadmap quiz instead!",
+      icon: '🔄',
+    },
+    apiTimeout: {
+      text: 'This is taking longer than expected. Hang tight, or try again with a shorter description.',
+      icon: '⏳',
+    },
+    emptyResponse: {
+      text: "We couldn't find specific resources for that query. Try rephrasing, or explore the full roadmap for broader recommendations!",
+      icon: '🔍',
+    },
+  },
 };

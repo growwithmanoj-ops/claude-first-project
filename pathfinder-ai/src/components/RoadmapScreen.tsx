@@ -8,16 +8,18 @@ import { TipCard } from './TipCard';
 import { RecommendedSummary } from './RecommendedSummary';
 import { PhaseSection } from './PhaseSection';
 import { ExportButtons } from './ExportButtons';
+import { CustomRecCTA } from './CustomRecCTA';
 
 interface Props {
   answers: UserAnswers;
   onStartOver: () => void;
   onBack: () => void;
+  onOpenCustomRec: () => void;
 }
 
 const PHASES = [1, 2, 3, 4, 5] as const;
 
-export function RoadmapScreen({ answers, onStartOver, onBack }: Props) {
+export function RoadmapScreen({ answers, onStartOver, onBack, onOpenCustomRec }: Props) {
   const roadmapRef = useRef<HTMLDivElement>(null);
   const roadmap = getRoadmap(answers);
   const startPhase = getStartPhase(answers.experience);
@@ -115,12 +117,22 @@ export function RoadmapScreen({ answers, onStartOver, onBack }: Props) {
           ))}
         </div>
 
+        {/* Custom Rec floating CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ type: 'spring', stiffness: 300, damping: 30, delay: 0.95 }}
+          className="mt-6"
+        >
+          <CustomRecCTA onOpen={onOpenCustomRec} variant="roadmap" />
+        </motion.div>
+
         {/* Mobile export buttons */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.9 }}
-          className="mt-8 pt-6 border-t border-border md:hidden"
+          transition={{ delay: 1.0 }}
+          className="mt-6 pt-6 border-t border-border md:hidden"
         >
           <ExportButtons onStartOver={onStartOver} roadmapRef={roadmapRef} />
         </motion.div>

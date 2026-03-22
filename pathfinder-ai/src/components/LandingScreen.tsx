@@ -1,11 +1,13 @@
 import { motion } from 'framer-motion';
 import { Compass, ArrowRight } from 'lucide-react';
+import { CustomRecCTA } from './CustomRecCTA';
 
 interface Props {
   onStart: () => void;
+  onOpenCustomRec: () => void;
 }
 
-export function LandingScreen({ onStart }: Props) {
+export function LandingScreen({ onStart, onOpenCustomRec }: Props) {
   return (
     <div className="min-h-screen bg-surface flex items-center justify-center px-6 py-12">
       {/* Subtle radial background */}
@@ -77,6 +79,15 @@ export function LandingScreen({ onStart }: Props) {
           >
             No signup. No email. Takes 2 minutes.
           </motion.p>
+
+          {/* Secondary CTA */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.1 }}
+          >
+            <CustomRecCTA onOpen={onOpenCustomRec} variant="landing" />
+          </motion.div>
         </motion.div>
       </div>
     </div>
