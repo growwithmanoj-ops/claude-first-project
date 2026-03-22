@@ -32,6 +32,10 @@ function App() {
     setScreen('roadmap');
   };
 
+  const handleBackFromRoadmap = () => {
+    setScreen('questions');
+  };
+
   return (
     <AnimatePresence mode="wait">
       {screen === 'landing' && (
@@ -89,6 +93,7 @@ function App() {
           <RoadmapScreen
             answers={answers as UserAnswers}
             onStartOver={startOver}
+            onBack={handleBackFromRoadmap}
           />
         </motion.div>
       )}

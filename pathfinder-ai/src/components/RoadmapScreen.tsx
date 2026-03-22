@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Compass } from 'lucide-react';
+import { Compass, ArrowLeft } from 'lucide-react';
 import type { UserAnswers } from '../types';
 import { getRoadmap, getStartPhase, getRecommendedItems, roleLabels, experienceLabels, goalLabels } from '../utils/routing';
 import { tips } from '../data/tips';
@@ -12,11 +12,12 @@ import { ExportButtons } from './ExportButtons';
 interface Props {
   answers: UserAnswers;
   onStartOver: () => void;
+  onBack: () => void;
 }
 
 const PHASES = [1, 2, 3, 4, 5] as const;
 
-export function RoadmapScreen({ answers, onStartOver }: Props) {
+export function RoadmapScreen({ answers, onStartOver, onBack }: Props) {
   const roadmapRef = useRef<HTMLDivElement>(null);
   const roadmap = getRoadmap(answers);
   const startPhase = getStartPhase(answers.experience);
@@ -33,11 +34,20 @@ export function RoadmapScreen({ answers, onStartOver }: Props) {
       {/* Header bar */}
       <div className="bg-white border-b border-border sticky top-0 z-10">
         <div className="max-w-2xl mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-accent flex items-center justify-center">
-              <Compass className="w-3.5 h-3.5 text-white" />
+          <div className="flex items-center gap-3">
+            <button
+              onClick={onBack}
+              className="flex items-center gap-1.5 text-sm text-secondary hover:text-primary transition-colors cursor-pointer"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Back
+            </button>
+            <div className="flex items-center gap-2">
+              <div className="w-7 h-7 rounded-lg bg-accent flex items-center justify-center">
+                <Compass className="w-3.5 h-3.5 text-white" />
+              </div>
+              <span className="font-semibold text-primary text-sm">PathfinderAI</span>
             </div>
-            <span className="font-semibold text-primary text-sm">PathfinderAI</span>
           </div>
           <div className="hidden md:block">
             <ExportButtons onStartOver={onStartOver} roadmapRef={roadmapRef} />
